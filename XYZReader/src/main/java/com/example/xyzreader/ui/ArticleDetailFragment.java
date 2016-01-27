@@ -11,8 +11,10 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
@@ -38,23 +40,24 @@ public class ArticleDetailFragment extends Fragment implements
     private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
-    private static final float PARALLAX_FACTOR = 1.25f;
+   // private static final float PARALLAX_FACTOR = 1.25f;
 
     private Cursor mCursor;
     private long mItemId;
     private View mRootView;
     private int mMutedColor = 0xFF333333;
-    private ObservableScrollView mScrollView;
-    private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
-    private ColorDrawable mStatusBarColorDrawable;
+    //private ObservableScrollView mScrollView;
+    //private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
+    //private ColorDrawable mStatusBarColorDrawable;
 
     private int mTopInset;
     //private View mPhotoContainerView;
     private ImageView mPhotoView;
-    private int mScrollY;
-    private boolean mIsCard = false;
-    private int mStatusBarFullOpacityBottom;
-
+   // private int mScrollY;
+    //private boolean mIsCard = false;
+   // private int mStatusBarFullOpacityBottom;
+    private CollapsingToolbarLayout  mCollapsingToobar ;
+    private Toolbar mToolbar ;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -84,9 +87,9 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);*/
     }
 
-    public ArticleDetailActivity getActivityCast() {
+    /*public ArticleDetailActivity getActivityCast() {
         return (ArticleDetailActivity) getActivity();
-    }
+    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -126,7 +129,7 @@ public class ArticleDetailFragment extends Fragment implements
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         //mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
-        mStatusBarColorDrawable = new ColorDrawable(0);
+        //mStatusBarColorDrawable = new ColorDrawable(0);
 
         mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +140,15 @@ public class ArticleDetailFragment extends Fragment implements
                         .getIntent(), getString(R.string.action_share)));
             }
         });
+        mCollapsingToobar = (CollapsingToolbarLayout) mRootView.findViewById(R.id.Collapse_toolbar);
+        mToolbar  = (Toolbar) mRootView.findViewById(R.id.toolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
-        bindViews();
         //updateStatusBar();
         return mRootView;
     }
@@ -158,7 +168,7 @@ public class ArticleDetailFragment extends Fragment implements
         //mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
     }*/
 
-    static float progress(float v, float min, float max) {
+/*    static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
     }
 
@@ -170,7 +180,7 @@ public class ArticleDetailFragment extends Fragment implements
         } else {
             return val;
         }
-    }
+    }*/
 
     private void bindViews() {
         if (mRootView == null) {
@@ -184,10 +194,11 @@ public class ArticleDetailFragment extends Fragment implements
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
-            mRootView.setAlpha(0);
+            /*mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
-            titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+            titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));*/
+            mCollapsingToobar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
             bylineView.setText(Html.fromHtml(
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
@@ -221,6 +232,7 @@ public class ArticleDetailFragment extends Fragment implements
             titleView.setText("N/A");
             bylineView.setText("N/A" );
             bodyView.setText("N/A");
+            mCollapsingToobar.setTitle("N/A");
         }
     }
 

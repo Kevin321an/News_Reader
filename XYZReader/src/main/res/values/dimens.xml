@@ -11,6 +11,7 @@
     <dimen name="cardView_padding">4dp</dimen>
     <dimen name="cardView_text_size">6sp</dimen>
     <dimen name="AppBarLayout_Height">260dp</dimen>
+    <dimen name="Detail_View_padding">16dp</dimen>
 
 
 
