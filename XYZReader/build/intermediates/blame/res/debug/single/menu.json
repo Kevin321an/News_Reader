@@ -2,5 +2,9 @@
     {
         "merged": "C:\\Users\\FM\\Documents\\GitHub\\News_Reader\\XYZReader\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
         "source": "C:\\Users\\FM\\Documents\\GitHub\\News_Reader\\XYZReader\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\Android\\xyzreader\\XYZReader\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\Android\\xyzreader\\XYZReader\\src\\main\\res\\menu\\main.xml"
     }
 ]
